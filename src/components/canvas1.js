@@ -88,6 +88,7 @@ const ParentContainer = () => {
 
   return (
     <div>
+      <div style={{ height: "100px", width: "200px" }}></div>
       <canvas
         id="canvas"
         ref={canvas}

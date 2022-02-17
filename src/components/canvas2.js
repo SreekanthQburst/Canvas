@@ -11,6 +11,8 @@ import "../App.css";
 
 const ParentContainer = () => {
   const canvas = useRef();
+  const parentCanvas = useRef();
+
   let ctx_array = [];
   var coordinates_array = [];
   const [state, setState] = useState({
@@ -27,8 +29,8 @@ const ParentContainer = () => {
   useEffect(() => {
     new_ctx = canvas.current.getContext("2d");
     rect = {};
-    canvasX = canvas.current.offsetLeft;
-    canvasY = canvas.current.offsetTop;
+    canvasX = parentCanvas.current.offsetLeft;
+    canvasY = parentCanvas.current.offsetTop;
     drag = false;
     canvas.current.addEventListener("mousedown", mouseDown, false);
     canvas.current.addEventListener("mouseup", mouseUp, false);
@@ -55,10 +57,9 @@ const ParentContainer = () => {
     drag = true;
   };
   const mouseUp = () => {
-    drag = false;
     console.log(rect);
-    // coordinates_array.push(rect);
-    allRectangles();
+    console.log(parentCanvas.current.offsetTop);
+    drag = false;
     // draw();
   };
 
@@ -82,18 +83,19 @@ const ParentContainer = () => {
     new_ctx.stroke();
     new_ctx.strokeRect(rect.x, rect.y, rect.w, rect.h);
   };
-  const allRectangles = () => {
-    console.log(coordinates_array);
-    // coordinates_array.forEach((element, index) => {
-    //   new_ctx.strokeRect(element.x, element.y, element.w, element.h);
-    // });
-  };
 
   return (
     <div>
-      <div className="container">
+      <div style={{ height: "100px", width: "200px" }}></div>
+      <div className="container" ref={parentCanvas}>
         <img src={img} alt="" />
-        <canvas id="canvas" className="canvas" ref={canvas}>
+        <canvas
+          id="canvas"
+          className="canvas"
+          width="800"
+          height="500"
+          ref={canvas}
+        >
           {" "}
         </canvas>
       </div>
